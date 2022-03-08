@@ -1,0 +1,827 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "Custom Endpoint for ThirdPartyBots",
+    "version": "0.0.1",
+    "title": "Bot Platform Custom Endpoint ",
+    "contact": {
+      "name": "LivePerson Technical Solution",
+      "email": "automation-lp@liveperson.com"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Bot",
+      "description": "Operations allowed on a bot"
+    },
+    {
+      "name": "Conversation",
+      "description": "Conversation level operations"
+    }
+  ],
+  "x-middlewares": [
+    {
+      "name": "authenticate",
+      "description": "Check if the authentication is valid"
+    },
+    {
+      "name": "getResponse",
+      "description": "Gets the bots reply to a consumer event"
+    },
+    {
+      "name": "getBotState",
+      "description": "Get the current state of a bot"
+    },
+    {
+      "name": "addConversation",
+      "description": "Get the current state of a bot"
+    },
+    {
+      "name": "getEnvironments",
+      "description": "Get a list of all environments of a bot"
+    }
+  ],
+  "servers": [
+    {
+      "description": "The test service",
+      "url": ""
+    }
+  ],
+  "paths": {
+    "/{apiVersion}/bots/{botId}/environments": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/apiVersion"
+        },
+        {
+          "$ref": "#/components/parameters/botId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Bot"
+        ],
+        "x-middlewares": ["validateAuthentication", "getEnvironments"],
+        "description": "Returns a list of environments for this bot",
+        "responses": {
+          "200": {
+            "description": "Bot Found",
+            "$ref": "#/components/responses/EnvironmentsResponse"
+          },
+          "401": {
+            "description": "App Installation auth failed"
+          },
+          "404": {
+            "description": "Bot not found"
+          }
+        }
+      }
+    },
+    "/{apiVersion}/bots/{botId}/environments/{environment}/state": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/apiVersion"
+        },
+        {
+          "$ref": "#/components/parameters/environment"
+        },
+        {
+          "$ref": "#/components/parameters/botId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Bot"
+        ],
+        "x-middlewares": ["validateAuthentication", "getBotState"],
+        "description": "The bot should respond with it's state if authentication succeeded",
+        "responses": {
+          "200": {
+            "description": "Bot Found",
+            "$ref": "#/components/responses/StatusResponse"
+          },
+          "401": {
+            "description": "App Installation auth failed"
+          },
+          "404": {
+            "description": "Bot or environment not found"
+          }
+        }
+      }
+    },
+    "/{apiVersion}/bots/{botId}/environments/{environment}/conversations/{convId}/events": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/apiVersion"
+        },
+        {
+          "$ref": "#/components/parameters/environment"
+        },
+        {
+          "$ref": "#/components/parameters/botId"
+        },
+        {
+          "$ref": "#/components/parameters/convId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Conversation"
+        ],
+        "x-middlewares": ["validateAuthentication", "getResponse"],
+        "description": "The bot should respond with the bot messages and analytics data",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationChange"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "$ref": "#/components/responses/PostEventResponse"
+          },
+          "401": {
+            "description": "App Installation auth failed"
+          },
+          "404": {
+            "description": "Conversation not found (or bot, environment)"
+          }
+        }
+      }
+    },
+    "/{apiVersion}/bots/{botId}/environments/{environment}/conversations/{convId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/apiVersion"
+        },
+        {
+          "$ref": "#/components/parameters/environment"
+        },
+        {
+          "$ref": "#/components/parameters/botId"
+        },
+        {
+          "$ref": "#/components/parameters/convId"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Conversation"
+        ],
+        "x-middlewares": ["validateAuthentication", "addConversation"],
+        "description": "Create a conversation on the bot",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Conversation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "App Installation auth failed"
+          },
+          "404": {
+            "description": "Bot or environment not found"
+          },
+          "409": {
+            "description": "Conversation already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "parameters": {
+      "apiVersion": {
+        "name": "apiVersion",
+        "description": "The Version of the api",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "environment": {
+        "name": "environment",
+        "description": "The bot environment",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "botId": {
+        "name": "botId",
+        "description": "The bot Id, ideally a UUID or an alphanumeric value",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^([A-Za-z0-9-]+)$",
+          "maxLength": 36
+        }
+      },
+      "convId": {
+        "name": "convId",
+        "description": "The conversation Id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "changeId": {
+        "name": "changeId",
+        "description": "The ums sequenceId or some fake number that represents the order of the message",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      }
+    },
+    "responses": {
+      "PostEventResponse": {
+        "description": "Response send by the bot on a conversation event",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "response", "analytics"
+              ],
+              "properties": {
+                "response": {
+                  "$ref": "#/components/schemas/BotResponse"
+                },
+                "analytics": {
+                  "$ref": "#/components/schemas/Analytics"
+                }
+              }
+            }
+          }
+        }
+      },
+      "EnvironmentsResponse": {
+        "description": "List of available environments for a bot",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Environment"
+            }
+          }
+        }
+      },
+      "StatusResponse": {
+        "description": "Status of a bot",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BotStatus"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "required": ["change", "response"],
+        "properties": {
+          "change": {
+            "description": "This is just the full description of the resource, on the response payload this does not have to be set",
+            "$ref": "#/components/schemas/ConversationChange"
+          },
+          "response": {
+            "$ref": "#/components/schemas/BotResponse"
+          },
+          "analytics": {
+            "$ref": "#/components/schemas/Analytics"
+          }
+        }
+      },
+      "ConversationChange": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TextChange"
+          },
+          {
+            "$ref": "#/components/schemas/StateChange"
+          },
+          {
+            "$ref": "#/components/schemas/StructuredContentChange"
+          },
+          {
+            "$ref": "#/components/schemas/HostedFileChange"
+          }
+        ],
+        "description": "A conversation change the bot should react to"
+      },
+      "TextChange": {
+        "description": "A new text message found on the conversation",
+        "required": ["type", "data", "context"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["TEXT"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["message"],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "context": {
+            "$ref": "#/components/schemas/ChangeContext"
+          }
+        }
+      },
+      "StateChange": {
+        "description": "A change to the conversation",
+        "required": ["type", "data", "context"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["CONVERSATION"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["name", "context"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": ["STARTED", "TRANSFERRED", "CLOSED"]
+              }
+            }
+          },
+          "context": {
+            "$ref": "#/components/schemas/ChangeContext"
+          }
+        }
+      },
+      "StructuredContentChange": {
+        "description": "A structured content message found on the conversation",
+        "required": ["type", "data", "context"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["structured-content"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["content", "context"],
+            "properties": {
+              "content": {
+                "type": "object",
+                "description": "Must contain valid LP structured content for the designated target channel"
+              }
+            }
+          },
+          "context": {
+            "$ref": "#/components/schemas/ChangeContext"
+          }
+        }
+      },
+      "HostedFileChange": {
+        "description": "An hosted file event found on the conversation",
+        "required": ["type", "data", "context"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["hosted-file"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["relativePath", "fileType"],
+            "properties": {
+              "caption": {
+                "type": "string",
+                "description": "File Caption"
+              },
+              "relativePath": {
+                "type": "string",
+                "description": "Relative Path"
+              },
+              "fileType": {
+                "type": "string",
+                "description": "The File Extension"
+              },
+              "preview": {
+                "type": "string",
+                "description": "Preview?"
+              }
+            }
+          },
+          "context": {
+            "$ref": "#/components/schemas/ChangeContext"
+          }
+        }
+      },
+      "ChangeContext": {
+        "type": "object",
+        "required": ["lpEvent"],
+        "properties": {
+          "lpEvent": {
+            "type": "object"
+          }
+        }
+      },
+      "Conversation": {
+        "type": "object",
+        "required": ["sdes", "context"],
+        "properties": {
+          "sdes": {
+            "description": "",
+            "type": "object"
+          },
+          "context": {
+            "$ref": "#/components/schemas/ConversationContext"
+          }
+        }
+      },
+      "BotResponse": {
+        "type": "array",
+        "description": "All messages and actions the bot wants to send on the conversation as a direct response to the consumer request",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Text"
+            },
+            {
+              "$ref": "#/components/schemas/StructuredContent"
+            },
+            {
+              "$ref": "#/components/schemas/Delay"
+            },
+            {
+              "$ref": "#/components/schemas/Action"
+            }
+          ]
+        }
+      },
+      "Environment": {
+        "type": "array",
+        "description": "List of available environments",
+        "items": {
+          "type": "string"
+        }
+      },
+      "BotStatus": {
+        "type": "object",
+        "description": "List of available environments",
+        "required": ["status", "version"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Current Status of the bot, everything besides 'online' will result in the bot health check failing",
+            "enum": ["online", "offline", "error", "maintenance"]
+          },
+          "version": {
+            "type": "string",
+            "description": "semver string of the bot version deployed to this environment"
+          }
+        }
+      },
+      "Text": {
+        "description": "A text event",
+        "required": ["type", "data"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["TEXT"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["message"],
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "encodedMetadata": {
+                "type": "string"
+              },
+              "metadata": {
+                "type": "object"
+              },
+              "messageAudience": {
+                "type": "string",
+                "enum": ["AGENTS_AND_MANAGERS", "ALL"],
+                "default": "ALL"
+              }
+            }
+          }
+        }
+      },
+      "StructuredContent":  {
+        "description": "A structured content event",
+        "required": ["type", "data"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["STRUCTURED_CONTENT"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["structuredContent"],
+            "properties": {
+              "structuredContent": {
+                "type": "object",
+                "description": "Must contain valid LP structured content for the designated target channel"
+              },
+              "encodedMetadata": {
+                "type": "string"
+              },
+              "metadata": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "Action":  {
+        "description": "An action event",
+        "required": ["type", "data"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["ACTION"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": ["TRANSFER", "CLOSE_CONVERSATION", "INVOKE_FUNCTION", "CHANGE_TTR"]
+              },
+              "parameters": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "TransferAction": {
+        "required": ["name", "parameters"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "TRANSFER"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ActionParametersTransferToSkill"
+              },
+              {
+                "$ref": "#/components/schemas/ActionParametersTransferToAgent"
+              }
+            ]
+          }
+        }
+      },
+      "ActionParametersTransferToSkill": {
+        "type": "object",
+        "required": ["skillName"],
+        "additionalProperties": false,
+        "properties": {
+          "skillName": {
+            "type": "string"
+          }
+        }
+      },
+      "ActionParametersTransferToAgent": {
+        "type": "object",
+        "required": ["agentId"],
+        "additionalProperties": false,
+        "properties": {
+          "agentId": {
+            "type": "string"
+          }
+        }
+      },
+      "CloseConversationAction": {
+        "required": ["name", "parameters"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "CLOSE_CONVERSATION"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "withoutPcs": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          }
+        }
+      },
+      "InvokeFunctionAction": {
+        "required": ["name", "parameters"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "INVOKE_FUNCTION"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "required": ["lambdaUuid", "payload"],
+            "properties": {
+              "lambdaUuid": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "payload": {
+                "type": "object"
+              },
+              "failOnError": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          }
+        }
+      },
+      "ChangeTTRAction": {
+        "required": ["name", "parameters"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "CHANGE_TTR"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ActionParametersStandardTTR"
+              },
+              {
+                "$ref": "#/components/schemas/ActionParametersCustomTTR"
+              }
+            ]
+          }
+        }
+      },
+      "ActionParametersCustomTTR": {
+        "type": "object",
+        "required": ["ttrType", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "ttrType": {
+            "type": "string",
+            "enum": ["CUSTOM"]
+          },
+          "value": {
+            "oneOf": [{ "type": "string", "minLength": 1 }, { "type": "number" }]
+          }
+        }
+      },
+      "ActionParametersStandardTTR": {
+        "type": "object",
+        "required": ["ttrType"],
+        "additionalProperties": false,
+        "properties": {
+          "ttrType": {
+            "type": "string",
+            "enum": ["URGENT", "NORMAL", "PRIORITIZED"]
+          }
+        }
+      },
+      "Delay": {
+        "description": "A delay event",
+        "required": ["type", "data"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["DELAY"]
+          },
+          "data": {
+            "type": "object",
+            "required": ["seconds"],
+            "properties": {
+              "seconds": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "typing": {
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        }
+      },
+      "Analytics": {
+        "type": "object",
+        "minItems": 1,
+        "properties": {
+          "Intents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Intent"
+            },
+            "description": "All matched intents for the consumer message"
+          }
+        }
+      },
+      "Intent": {
+        "type": "object",
+        "required": ["id","description","confidenceScore"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^\\s]*$",
+            "description": "The identifier of the intent"
+          },
+          "description": {
+            "type": "string",
+            "description": "A more descriptive string for this intent"
+          },
+          "confidenceScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Likelihood that this matches the consumers intent"
+          }
+        }
+      },
+      "ConversationContext": {
+        "type": "object",
+        "required": [
+          "type",
+          "skillId",
+          "engagementId"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "the conversation type",
+            "enum": [
+              "MESSAGING",
+              "CHAT"
+            ]
+          },
+          "skillId": {
+            "type": "number",
+            "description": "the identifier of the skill the conversation is currently routed to"
+          },
+          "engagementId": {
+            "type": "number",
+            "description": "The identifier of the engagement"
+          },
+          "campaignId": {
+            "type": "number",
+            "description": "The identifier of the campaign"
+          },
+          "contextType": {
+            "type": "number",
+            "description": "The identifier of the campaign"
+          },
+          "visitor": {
+            "type": "object",
+            "description": "Visitor details"
+          }
+        }
+      }
+    }
+  }
+}
