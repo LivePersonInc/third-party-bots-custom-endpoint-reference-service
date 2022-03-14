@@ -497,11 +497,11 @@
       "BotStatus": {
         "type": "object",
         "description": "List of available environments",
-        "required": ["status", "version"],
+        "required": ["state", "version"],
         "properties": {
-          "status": {
+          "state": {
             "type": "string",
-            "description": "Current Status of the bot, everything besides 'online' will result in the bot health check failing",
+            "description": "Current state of the bot, everything besides 'online' will result in the bot health check failing",
             "enum": ["online", "offline", "error", "maintenance"]
           },
           "version": {
