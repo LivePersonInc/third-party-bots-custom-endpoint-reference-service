@@ -63,9 +63,7 @@
         }
       ],
       "get": {
-        "tags": [
-          "Bot"
-        ],
+        "tags": ["Bot"],
         "x-middlewares": ["validateAuthentication", "getEnvironments"],
         "description": "Returns a list of environments for this bot",
         "responses": {
@@ -95,9 +93,7 @@
         }
       ],
       "get": {
-        "tags": [
-          "Bot"
-        ],
+        "tags": ["Bot"],
         "x-middlewares": ["validateAuthentication", "getBotState"],
         "description": "The bot should respond with it's state if authentication succeeded",
         "responses": {
@@ -130,9 +126,7 @@
         }
       ],
       "post": {
-        "tags": [
-          "Conversation"
-        ],
+        "tags": ["Conversation"],
         "x-middlewares": ["validateAuthentication", "getResponse"],
         "description": "The bot should respond with the bot messages and analytics data",
         "requestBody": {
@@ -175,9 +169,7 @@
         }
       ],
       "put": {
-        "tags": [
-          "Conversation"
-        ],
+        "tags": ["Conversation"],
         "x-middlewares": ["validateAuthentication", "addConversation"],
         "description": "Create a conversation on the bot",
         "requestBody": {
@@ -271,9 +263,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "response", "analytics"
-              ],
+              "required": ["response", "analytics"],
               "properties": {
                 "response": {
                   "$ref": "#/components/schemas/BotResponse"
@@ -393,7 +383,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["structured-content"]
+            "enum": ["RICH_CONTENT"]
           },
           "data": {
             "type": "object",
@@ -401,7 +391,7 @@
             "properties": {
               "content": {
                 "type": "object",
-                "description": "Must contain valid LP structured content for the designated target channel"
+                "description": "Must contain valid LP structured/rich content for the designated target channel"
               }
             }
           },
@@ -540,7 +530,7 @@
           }
         }
       },
-      "StructuredContent":  {
+      "StructuredContent": {
         "description": "A structured content event",
         "required": ["type", "data"],
         "properties": {
@@ -566,7 +556,7 @@
           }
         }
       },
-      "Action":  {
+      "Action": {
         "description": "An action event",
         "required": ["type", "data"],
         "properties": {
@@ -580,7 +570,12 @@
             "properties": {
               "name": {
                 "type": "string",
-                "enum": ["TRANSFER", "CLOSE_CONVERSATION", "INVOKE_FUNCTION", "CHANGE_TTR"]
+                "enum": [
+                  "TRANSFER",
+                  "CLOSE_CONVERSATION",
+                  "INVOKE_FUNCTION",
+                  "CHANGE_TTR"
+                ]
               },
               "parameters": {
                 "type": "object"
@@ -594,9 +589,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "enum": [
-              "TRANSFER"
-            ]
+            "enum": ["TRANSFER"]
           },
           "parameters": {
             "type": "object",
@@ -636,9 +629,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "enum": [
-              "CLOSE_CONVERSATION"
-            ]
+            "enum": ["CLOSE_CONVERSATION"]
           },
           "parameters": {
             "type": "object",
@@ -656,9 +647,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "enum": [
-              "INVOKE_FUNCTION"
-            ]
+            "enum": ["INVOKE_FUNCTION"]
           },
           "parameters": {
             "type": "object",
@@ -684,9 +673,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "enum": [
-              "CHANGE_TTR"
-            ]
+            "enum": ["CHANGE_TTR"]
           },
           "parameters": {
             "type": "object",
@@ -711,7 +698,10 @@
             "enum": ["CUSTOM"]
           },
           "value": {
-            "oneOf": [{ "type": "string", "minLength": 1 }, { "type": "number" }]
+            "oneOf": [
+              { "type": "string", "minLength": 1 },
+              { "type": "number" }
+            ]
           }
         }
       },
@@ -765,7 +755,7 @@
       },
       "Intent": {
         "type": "object",
-        "required": ["id","description","confidenceScore"],
+        "required": ["id", "description", "confidenceScore"],
         "properties": {
           "id": {
             "type": "string",
@@ -786,19 +776,12 @@
       },
       "ConversationContext": {
         "type": "object",
-        "required": [
-          "type",
-          "skillId",
-          "engagementId"
-        ],
+        "required": ["type", "skillId", "engagementId"],
         "properties": {
           "type": {
             "type": "string",
             "description": "the conversation type",
-            "enum": [
-              "MESSAGING",
-              "CHAT"
-            ]
+            "enum": ["MESSAGING", "CHAT"]
           },
           "skillId": {
             "type": "number",
