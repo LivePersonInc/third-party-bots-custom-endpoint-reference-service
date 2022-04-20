@@ -744,7 +744,7 @@
         "type": "object",
         "minItems": 1,
         "properties": {
-          "Intents": {
+          "intents": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Intent"
