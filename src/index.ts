@@ -5,13 +5,23 @@ import dotenv from "dotenv";
 import * as bodyParser from "body-parser";
 import * as winston from "winston";
 import * as expressWinston from "express-winston";
-import cors from "cors";
 
 import "reflect-metadata";
 
 dotenv.config();
 
 const app: Express = express();
+
+// Log the HTTP requests
+app.use(
+  expressWinston.logger({
+    transports: [new winston.transports.Console()],
+    format: winston.format.combine(
+      winston.format.json(),
+      winston.format.colorize()
+    ),
+  })
+);
 
 useExpressServer(app, {
   cors: true,
@@ -21,26 +31,15 @@ useExpressServer(app, {
 
 const port = process.env.PORT;
 
-// Log the HTTP requests
-app.use(
-  expressWinston.logger({
-    transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.json()
-    ),
-  })
-);
-
 app.use(bodyParser.json());
 
 // Log the Error response *NOTE ROUTES SHOULD GO BEFORE THIS*
 app.use(
   expressWinston.errorLogger({
-    transports: [new winston.transports.Console({})],
+    transports: [new winston.transports.Console()],
     format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.json()
+      winston.format.json(),
+      winston.format.colorize()
     ),
   })
 );
