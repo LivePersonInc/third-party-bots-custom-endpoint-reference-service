@@ -1,5 +1,6 @@
 export enum MessageAudience {
   ALL = "ALL",
+  AGENTS_AND_MANAGERS = "AGENTS_AND_MANAGERS",
 }
 
 export interface ILPEvent {

@@ -16,9 +16,11 @@ import {
 import {
   GetEnvironmentsResponseBody,
   GetStateResponseBody,
+  PostConversationEventsResponseBody,
 } from "./responseBodies";
 import { BotService } from "../services/BotService";
 import { Environment } from "../models/environments/IEnvironment";
+import { IResponseType } from "../models/bots/responses/IResponseTypes";
 @JsonController("/bots")
 export class BotController {
   botService: BotService;
@@ -78,7 +80,12 @@ export class BotController {
     @Param("environmentId") environmentId: string,
     @Param("convId") convId: string,
     @Body() body: PostConversationEventRequestBody
-  ): Object {
-    return {};
+  ): PostConversationEventsResponseBody {
+    return {
+      response: [
+        { type: "TEXT" as IResponseType.TEXT, data: { message: "Hello" } },
+      ],
+      analytics: { intents: [] },
+    };
   }
 }

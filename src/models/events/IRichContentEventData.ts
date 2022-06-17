@@ -1,4 +1,4 @@
-export interface RichContentEventData {
+export interface IRichContentEventData {
   /**
    * content variable contains the Rich/Structured Content Event data which is LivePerson Rich Content Object
    * @link https://developers.liveperson.com/getting-started-with-rich-messaging-introduction.html

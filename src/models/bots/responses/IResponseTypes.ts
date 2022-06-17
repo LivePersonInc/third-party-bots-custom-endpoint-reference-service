@@ -1,0 +1,6 @@
+export enum IResponseType {
+  TEXT = "TEXT",
+  ACTION = "ACTION",
+  DELAY = "DELAY",
+  STRUCTURED_CONTENT = "STRUCTURED_CONTENT",
+}

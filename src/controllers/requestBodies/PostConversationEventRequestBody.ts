@@ -1,6 +1,6 @@
-import { RichContentEventData } from "../../models/events/IRichContentEventData";
+import { IRichContentEventData } from "../../models/events/IRichContentEventData";
 import { IEventContext } from "../../models/events/IEventContext";
-import { TextEventData } from "../../models/events/ITextEventData";
+import { ITextEventData } from "../../models/events/ITextEventData";
 
 export enum EventMessageType {
   TEXT = "TEXT",
@@ -14,6 +14,6 @@ export enum EventSource {
 export interface PostConversationEventRequestBody {
   type: EventMessageType;
   source: EventSource;
-  data: TextEventData | RichContentEventData;
+  data: ITextEventData | IRichContentEventData;
   context: IEventContext;
 }
