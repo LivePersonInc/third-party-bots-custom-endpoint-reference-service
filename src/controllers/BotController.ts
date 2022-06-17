@@ -6,6 +6,8 @@ import {
   Put,
   Post,
   NotFoundError,
+  InternalServerError,
+  OnUndefined,
 } from "routing-controllers";
 import {
   PutConversationRequestBody,
@@ -49,15 +51,31 @@ export class BotController {
   }
 
   @Put("/:botId/environments/:environmentId/conversations/:convId")
+  @OnUndefined(204)
   putConversation(
+    @Param("botId") botId: string,
+    @Param("environmentId") environmentId: string,
     @Param("convId") convId: string,
     @Body() body: PutConversationRequestBody
-  ): Object {
-    return {};
+  ): void {
+    // check if the conversation exists in cache else create it and save information
+    const creationSuccessful = this.botService.createConversation(
+      botId,
+      environmentId as Environment,
+      convId,
+      body.context,
+      body.sdes || undefined // SDES can be found only if the bot was enabled to fetch engagement in TPB
+    );
+
+    if (!creationSuccessful) {
+      throw new InternalServerError(`Conversation creation was not success`);
+    }
   }
 
   @Post("/:botId/environments/:environmentId/conversations/:convId/events")
-  postConversationEvent(
+  fetchConversationEvents(
+    @Param("botId") botId: string,
+    @Param("environmentId") environmentId: string,
     @Param("convId") convId: string,
     @Body() body: PostConversationEventRequestBody
   ): Object {

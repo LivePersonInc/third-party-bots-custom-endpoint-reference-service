@@ -12,7 +12,6 @@ export class Cache {
     this.cache = new NodeCache({
       stdTTL: ttlSeconds,
       checkperiod: ttlSeconds * 0.2,
-      useClones: false,
     });
   }
 
@@ -27,11 +26,15 @@ export class Cache {
     return this.cache.get<T>(key);
   }
 
-  public set<T>(key: Key, value: T, ttl?: number | string | undefined): void {
+  public set<T>(
+    key: Key,
+    value: T,
+    ttl?: number | string | undefined
+  ): boolean {
     if (ttl) {
       this.cache.set(key, value, ttl);
     }
-    this.cache.set(key, value);
+    return this.cache.set(key, value);
   }
 }
 
