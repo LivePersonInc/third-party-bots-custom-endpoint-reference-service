@@ -3,7 +3,7 @@ import AppConfig from "../configs/app";
 
 type Key = string | number;
 
-class Cache {
+export class Cache {
   private static instance: Cache;
 
   private cache: NodeCache;
@@ -27,7 +27,10 @@ class Cache {
     return this.cache.get<T>(key);
   }
 
-  public set<T>(key: Key, value: T): void {
+  public set<T>(key: Key, value: T, ttl?: number | string | undefined): void {
+    if (ttl) {
+      this.cache.set(key, value, ttl);
+    }
     this.cache.set(key, value);
   }
 }
