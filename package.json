@@ -11,7 +11,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon",
     "commit": "git-cz",
-    "lint": "npx eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "0.27.2",
@@ -29,13 +29,14 @@
     "winston": "3.7.2"
   },
   "devDependencies": {
-    "@types/node-cache": "4.2.5",
     "@types/body-parser": "1.19.2",
     "@types/cors": "2.8.12",
     "@types/express": "4.17.13",
     "@types/express-winston": "4.0.0",
     "@types/node": "16.11.39",
-    "@typescript-eslint/parser": "5.28.0",
+    "@types/node-cache": "4.2.5",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
     "commitizen": "4.2.4",
     "cz-gitmoji": "0.0.7",
     "eslint": "8.17.0",

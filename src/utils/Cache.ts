@@ -11,7 +11,7 @@ export class Cache {
   private constructor(ttlSeconds: number) {
     this.cache = new NodeCache({
       stdTTL: ttlSeconds,
-      checkperiod: ttlSeconds * 0.2,
+      checkperiod: ttlSeconds * 0.2
     });
   }
 

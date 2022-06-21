@@ -14,7 +14,7 @@ export interface IConversationContext {
   engagementId: number;
   campaignId: number;
   contextType: number;
-  visitor: Object;
+  visitor: object;
   assignedAgentId: string;
   // ....Conversation context can contain more information
 }

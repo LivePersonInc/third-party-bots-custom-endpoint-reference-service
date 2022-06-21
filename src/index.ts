@@ -19,14 +19,14 @@ app.use(
     format: winston.format.combine(
       winston.format.json(),
       winston.format.colorize()
-    ),
+    )
   })
 );
 
 useExpressServer(app, {
   cors: true,
   routePrefix: "/v1",
-  controllers: [BotController], // we specify controllers we want to use in the application
+  controllers: [BotController] // we specify controllers we want to use in the application
 });
 
 const port = process.env.PORT;
@@ -40,7 +40,7 @@ app.use(
     format: winston.format.combine(
       winston.format.json(),
       winston.format.colorize()
-    ),
+    )
   })
 );
 
@@ -48,7 +48,7 @@ app
   .listen(port, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
   })
-  .on("error", function (err) {
+  .on("error", function () {
     process.once("SIGUSR2", function () {
       process.kill(process.pid, "SIGUSR2");
     });

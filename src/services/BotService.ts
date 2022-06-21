@@ -4,10 +4,12 @@ import { Environment } from "../models/environments/IEnvironment";
 import { State } from "../models/states/IState";
 import { Bots } from "../models/bots"; // all the bots that we have for this service
 import LocalCache from "../utils/Cache";
-
+import { ITextEventData } from "../models/events/ITextEventData";
+import { IRichContentEventData } from "../models/events/IRichContentEventData";
+import { ResponseFetcher } from "../utils/Response";
+import { IEventResponse } from "../models/events/IEventResponse";
+import { EventMessageType } from "../controllers/requestBodies";
 export class BotService {
-  constructor() {}
-
   findBot(botId: string, environment: Environment): IBot | null {
     const environmentBots = Bots.get(environment) || [];
     return environmentBots.find((bot) => bot.getId() === botId) || null;
@@ -48,7 +50,25 @@ export class BotService {
       : LocalCache.set(conversationCacheKey, { conversationContext, sdes });
   }
 
-  fetchConversationEvents(_botId: string, _event: Object): Object {
-    return {};
+  fetchConversationRichContentEvents(
+    botId: string,
+    eventData: IRichContentEventData
+  ): object {
+    return ResponseFetcher.getInstance().getConsumerRichContentEventResponse(
+      eventData
+    );
+  }
+
+  fetchConversationTextEvents(
+    botId: string,
+    eventData: ITextEventData
+  ): IEventResponse {
+    return ResponseFetcher.getInstance().getConsumerTextResponse(
+      eventData.message.toLocaleLowerCase()
+    );
+  }
+
+  fetchSurveyEvents(type: EventMessageType, eventData: object): IEventResponse {
+    return ResponseFetcher.getInstance().getSurveyResponse(type, eventData);
   }
 }

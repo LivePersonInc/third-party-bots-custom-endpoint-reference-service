@@ -5,5 +5,5 @@ import { PostConversationEventsResponseBody } from "./PostConversationEventsResp
 export {
   GetEnvironmentsResponseBody,
   GetStateResponseBody,
-  PostConversationEventsResponseBody,
+  PostConversationEventsResponseBody
 };

@@ -3,5 +3,5 @@ export const States = [
   State.error,
   State.maintenance,
   State.online,
-  State.offline,
+  State.offline
 ];

@@ -10,10 +10,12 @@ export enum Actions {
   CLOSE_CONVERSATION = "CLOSE_CONVERSATION",
   TRANSFER = "TRANSFER",
   CHANGE_TTR = "CHANGE_TTR",
+  INVOKE_FUNCTION = "INVOKE_FUNCTION",
 }
 
 export type CloseAction = {
   name: Actions.CLOSE_CONVERSATION;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   parameters: {};
 };
 
@@ -37,11 +39,20 @@ export type ChangeTTRAction = {
   };
 };
 
+export type InvokeFunctionAction = {
+  name: Actions.INVOKE_FUNCTION;
+  parameters: {
+    lambdaUuid: string;
+    payload?: object;
+  };
+};
+
 export type ActionData =
   | TransferActionWithAgent
   | TransferActionWithSkill
   | CloseAction
-  | ChangeTTRAction;
+  | ChangeTTRAction
+  | InvokeFunctionAction;
 
 /**
  * Delay Message response:

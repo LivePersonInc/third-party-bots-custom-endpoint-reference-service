@@ -26,14 +26,11 @@ export class DefaultBot implements IBot {
         break;
       case "maintenance":
         botState = State.maintenance;
+        break;
       default:
         botState = State.online;
     }
 
     return botState;
-  }
-
-  getResponse(event: Object): Object {
-    return { message: "hi" };
   }
 }
