@@ -12,15 +12,13 @@ import { EventMessageType } from "../controllers/requestBodies";
 export class BotService {
   findBot(botId: string, environment: Environment): IBot | null {
     const environmentBots = Bots.get(environment) || [];
-    return environmentBots.find((bot) => bot.getId() === botId) || null;
+    return environmentBots.find(bot => bot.getId() === botId) || null;
   }
 
   findEnvironments(botId: string): Array<Environment> {
-    return Array.from(Bots.keys()).filter((environmentName) => {
+    return Array.from(Bots.keys()).filter(environmentName => {
       const environmentBots = Bots.get(environmentName) || [];
-      const environmentBot = environmentBots.find(
-        (bot) => bot.getId() === botId
-      );
+      const environmentBot = environmentBots.find(bot => bot.getId() === botId);
       return !!environmentBot;
     });
   }
@@ -45,13 +43,26 @@ export class BotService {
     const conversationCacheKey = `conversation:${botId}:${environmentId}:${conversationId}`;
 
     // if exists send true else create conversation entry and send back response
-    return LocalCache.get("conversationCacheKey")
+    return LocalCache.get(conversationCacheKey)
       ? true
       : LocalCache.set(conversationCacheKey, { conversationContext, sdes });
   }
 
-  fetchConversationRichContentEvents(
+  getConversation(
     botId: string,
+    environmentId: Environment,
+    conversationId: string
+  ): object | undefined {
+    // Saving Conversation information like context and sdes for future use
+    // Ensure to save also SDES as they are sent only once in Create Conversation method
+    const conversationCacheKey = `conversation:${botId}:${environmentId}:${conversationId}`;
+
+    // if exists send true else create conversation entry and send back response
+    return LocalCache.get(conversationCacheKey);
+  }
+
+  fetchConversationRichContentEvents(
+    _botId: string,
     eventData: IRichContentEventData
   ): object {
     return ResponseFetcher.getInstance().getConsumerRichContentEventResponse(
@@ -60,7 +71,7 @@ export class BotService {
   }
 
   fetchConversationTextEvents(
-    botId: string,
+    _botId: string,
     eventData: ITextEventData
   ): IEventResponse {
     return ResponseFetcher.getInstance().getConsumerTextResponse(

@@ -22,7 +22,6 @@ import {
 } from "./responseBodies";
 import { BotService } from "../services/BotService";
 import { Environment } from "../models/environments/IEnvironment";
-import { IResponseType } from "../models/bots/responses/IResponseTypes";
 import { IRichContentEventData } from "../models/events/IRichContentEventData";
 import { ITextEventData } from "../models/events/ITextEventData";
 @JsonController("/bots")
@@ -76,6 +75,7 @@ export class BotController {
   }
 
   @Post("/:botId/environments/:environmentId/conversations/:convId/events")
+  @OnUndefined(404)
   fetchConversationEvents(
     @Param("botId") botId: string,
     @Param("environmentId") environmentId: Environment,
@@ -88,18 +88,28 @@ export class BotController {
       throw new NotFoundError(`Bot not found for the given environment.`);
     }
 
+    const conversation = this.botService.getConversation(
+      botId,
+      environmentId,
+      convId
+    );
+
+    if (!conversation) {
+      throw new NotFoundError(`no conversation found for the given bot.`);
+    }
+
     const { type, data } = body;
     // Currently we only support Text and Rich Content events sent by customer
 
     switch (type) {
       case EventMessageType.RICH_CONTENT:
-        this.botService.fetchConversationRichContentEvents(
+        return this.botService.fetchConversationRichContentEvents(
           botId,
           data as IRichContentEventData
-        );
+        ) as PostConversationEventsResponseBody;
         break;
       case EventMessageType.TEXT:
-        this.botService.fetchConversationTextEvents(
+        return this.botService.fetchConversationTextEvents(
           botId,
           data as ITextEventData
         );
@@ -115,15 +125,8 @@ export class BotController {
         break;
       default:
         throw new BadRequestError(
-          `Supported Conversation events are only '${EventMessageType.TEXT}', '${EventMessageType.START}', ${EventMessageType.CLOSE_CONVERSATION} and ${EventMessageType.RICH_CONTENT}`
+          `Supported Conversation events are only '${EventMessageType.TEXT}', '${EventMessageType.START}', '${EventMessageType.CLOSE_CONVERSATION}' and '${EventMessageType.RICH_CONTENT}'`
         );
     }
-
-    return {
-      response: [
-        { type: "TEXT" as IResponseType.TEXT, data: { message: "Hello" } }
-      ],
-      analytics: { intents: [] }
-    };
   }
 }
