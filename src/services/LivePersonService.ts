@@ -60,18 +60,19 @@ class LivePersonService {
     options: object | null,
     apiName: string,
     ttl?: number | undefined
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     const cacheKey = LivePersonService.createHashedKey({
       path,
       options,
-      apiName
+      apiName,
     });
     const cachedValue = this.cache.get(cacheKey);
 
     if (!cachedValue) {
       console.log("could not find data in cache, loading now", {
         path,
-        apiName
+        apiName,
       });
 
       const { data } = await axios.default.get(path, options || undefined);
