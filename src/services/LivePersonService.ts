@@ -65,14 +65,14 @@ class LivePersonService {
     const cacheKey = LivePersonService.createHashedKey({
       path,
       options,
-      apiName,
+      apiName
     });
     const cachedValue = this.cache.get(cacheKey);
 
     if (!cachedValue) {
       console.log("could not find data in cache, loading now", {
         path,
-        apiName,
+        apiName
       });
 
       const { data } = await axios.default.get(path, options || undefined);
@@ -97,7 +97,7 @@ class LivePersonService {
         accountId
       )) as CSDSResponse;
 
-      const { baseURI } = baseURIs.find((uri) => uri.service === service) || {};
+      const { baseURI } = baseURIs.find(uri => uri.service === service) || {};
 
       if (!baseURI) throw new Error(`Service ${service} not found`);
 
