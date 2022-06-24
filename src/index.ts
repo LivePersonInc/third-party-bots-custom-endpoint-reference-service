@@ -1,13 +1,20 @@
 import express, { Express } from "express";
-import { useExpressServer } from "routing-controllers";
+import {
+  Action,
+  useExpressServer,
+  UnauthorizedError,
+  BadRequestError
+} from "routing-controllers";
 import { BotController } from "./controllers";
 import dotenv from "dotenv";
+import { decode } from "jsonwebtoken";
 import * as bodyParser from "body-parser";
 import * as winston from "winston";
 import * as expressWinston from "express-winston";
-
 import "reflect-metadata";
-
+import { IJwt } from "./models/jwt";
+import { SecurityMiddleware } from "./middlewares/SecurityMiddleware";
+import configApp from "./configs/app";
 dotenv.config();
 
 const app: Express = express();
@@ -24,6 +31,36 @@ app.use(
 );
 
 useExpressServer(app, {
+  authorizationChecker: async (action: Action) => {
+    const token = action.request.headers["authorization"].split(" ")[1];
+
+    if (!token) {
+      throw new UnauthorizedError("Not authorized to do this action");
+    }
+
+    const decodedToken = decode(token) as IJwt;
+
+    if (!decodedToken) {
+      throw new BadRequestError("Unable to identify the request");
+    }
+
+    // The following scope will fail if you move to V2 and our
+    // This scope might also be changed in future release of custom endpoint
+    if (
+      decodedToken.scope &&
+      decodedToken.scope !== configApp.CUSTOM_ENDPOINT_APP_SCOPE
+    ) {
+      throw new BadRequestError("Not allowed to do this action");
+    }
+
+    await SecurityMiddleware.validateAuthentication(token, decodedToken);
+
+    // Set the valid auth info to the request chain for access later
+    action.request.auth = decodedToken;
+
+    return true;
+  },
+  currentUserChecker: (action: Action) => action.request.auth,
   cors: true,
   routePrefix: "/v1",
   controllers: [BotController] // we specify controllers we want to use in the application

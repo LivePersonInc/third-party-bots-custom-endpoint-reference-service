@@ -1,7 +1,7 @@
 import * as axios from "axios";
 import NodCache, { Cache } from "../utils/Cache";
 import AppConfig from "../configs/app";
-import { CSDSResponse } from "../models/commons";
+import { CSDSResponse, PublicApiKeysResponse } from "../models/commons";
 import crypto from "crypto";
 
 /**
@@ -138,9 +138,11 @@ class LivePersonService {
    * Get Public keys for Sentinel API v2
    * @param {string} accountId - Account ID
    *
-   * @returns {Promise<object>} - Keys Object
+   * @returns {Promise<PublicApiKeysResponse>} - Keys Object
    */
-  public async getPublicKeys(accountId: string): Promise<string> {
+  public async getPublicKeys(
+    accountId: string
+  ): Promise<PublicApiKeysResponse> {
     try {
       const baseURI: string = await this.getDomain(
         accountId,

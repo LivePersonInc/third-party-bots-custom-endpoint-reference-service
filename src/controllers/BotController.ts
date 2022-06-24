@@ -1,4 +1,5 @@
 import {
+  Authorized,
   JsonController,
   Param,
   Body,
@@ -24,6 +25,7 @@ import { BotService } from "../services/BotService";
 import { Environment } from "../models/environments/IEnvironment";
 import { IRichContentEventData } from "../models/events/IRichContentEventData";
 import { ITextEventData } from "../models/events/ITextEventData";
+@Authorized()
 @JsonController("/bots")
 export class BotController {
   botService: BotService;
