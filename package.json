@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "start": "yarn clean && yarn build && export NODE_ENV=production && node ./dist/index.js",
     "dev": "nodemon",
     "commit": "git-cz",
     "lint": "eslint ."
