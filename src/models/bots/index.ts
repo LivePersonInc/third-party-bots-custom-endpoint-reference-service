@@ -9,6 +9,7 @@ botMap.set(Environment.alpha, [
   new DefaultBot(configApp.default.BOTS.maintenance)
 ]);
 botMap.set(Environment.production, [
+  new DefaultBot(configApp.default.BOTS.online),
   new DefaultBot(configApp.default.BOTS.draft),
   new DefaultBot(configApp.default.BOTS.error),
   new DefaultBot(configApp.default.BOTS.offline)
