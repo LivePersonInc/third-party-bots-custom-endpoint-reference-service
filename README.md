@@ -59,9 +59,6 @@ body at the creation of a new event resource. At the moment getting historic dat
 any details on the conversation are not considered part of the specification and might only be optionally
 implemented by services.
 
-And of course Dillinger itself is open source with a [public repository][dill]
-on GitHub.
-
 ### Service Structure
 
 - 📂 **third\-party\-bots\-custom\-endpoint\-reference\-service\-public**
