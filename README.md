@@ -36,7 +36,7 @@ access to bots bases on the `accountId` provided as the 'aud' field on the authe
 ### Environments
 
 Every bot can have multiple versions with different conversational flows and intents. To address this the API
-==MUST PROVIDE== at least one standard environment named `draft` for each bot. Further environments can
+**MUST PROVIDE** at least one standard environment named `draft` for each bot. Further environments can
 be provided as needed. A bot environment will report the currently deployed bot version and its state. A bot
 environment should report it's state as `online` or otherwise the bot connection test will fail in Third-Party
 Bots. A bot environment should report a Semantic Version that describes what version of the bot
