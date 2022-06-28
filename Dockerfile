@@ -6,7 +6,8 @@ COPY . .
 
 RUN yarn config set registry http://tlvmvnrepository.tlv.lpnet.com/artifactory/api/npm/lp-npm-virtual/
 
-RUN yarn install --production
+RUN npm install typescript -g
+RUN yarn install
 
 ENV NODE_ENV=PRODUCTION
 ENV PORT=4004
