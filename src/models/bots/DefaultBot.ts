@@ -1,6 +1,6 @@
 import { IBot } from "./IBot";
 import { State } from "../states/IState";
-
+import * as configApp from "../../configs/app";
 export class DefaultBot implements IBot {
   id: string;
 
@@ -18,13 +18,13 @@ export class DefaultBot implements IBot {
   getState(): string {
     let botState;
     switch (this.id) {
-      case "error":
+      case configApp.default.BOTS.error:
         botState = State.error;
         break;
-      case "offline":
+      case configApp.default.BOTS.offline:
         botState = State.offline;
         break;
-      case "maintenance":
+      case configApp.default.BOTS.maintenance:
         botState = State.maintenance;
         break;
       default:
