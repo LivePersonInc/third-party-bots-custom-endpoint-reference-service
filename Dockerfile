@@ -1,18 +1,16 @@
 FROM node:16-alpine as tpb_custom_endpoint_service
-WORKDIR /usr/app
+RUN mkdir /app
+WORKDIR /app
 
-COPY package.json ./
+COPY . .
 
-COPY yarn.lock ./
-COPY tsconfig*.json ./
+RUN yarn config set registry http://tlvmvnrepository.tlv.lpnet.com/artifactory/api/npm/lp-npm-virtual/
 
-RUN npm install
-
-COPY . ./
-
-RUN npm run build
+RUN yarn install --production
 
 ENV NODE_ENV=PRODUCTION
-EXPOSE 5000/tcp
+ENV PORT=4004
 
-CMD ["node", "dist/src/index.js"]
+CMD yarn start
+
+EXPOSE 4004/tcp
