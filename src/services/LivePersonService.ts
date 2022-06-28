@@ -5,8 +5,7 @@ import { CSDSResponse, PublicApiKeysResponse } from "../models/commons";
 import crypto from "crypto";
 
 /**
- * The Singleton class defines the `getInstance` method that lets clients access
- * the unique singleton instance.
+ * LivePerson API calls wrapper implementation
  */
 class LivePersonService {
   private static instance: LivePersonService;

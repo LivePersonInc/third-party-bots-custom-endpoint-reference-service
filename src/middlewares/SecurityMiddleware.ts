@@ -4,8 +4,17 @@ import { Algorithm, verify } from "jsonwebtoken";
 import * as jwtToPem from "jwk-to-pem";
 import { IJwt } from "../models/jwt";
 import { CustomUnauthorizedError, SENTINEL_VERSIONS } from "../models/commons";
-
+/**
+ * Security Middleware class provides methods for validation of Auth
+ */
 export class SecurityMiddleware {
+  /**
+   * Get a Bot from passed botId and  environment from cache
+   * @param {string} token - bearer token
+   * @param {IJwt} decodedToken - decoded bearer token
+   *
+   * @returns {Promise<void>}
+   */
   public static async validateAuthentication(
     token: string,
     decodedToken: IJwt
