@@ -1,7 +1,7 @@
 import { IResponseBase } from "./IResponseBase";
 import { IResponseType } from "./IResponseTypes";
 
-export type StructureContentData = {
+export type StructuredContentData = {
   /**
    * `structuredContent` variable contains the Rich/Structured Content object More information:
    * @link https://developers.liveperson.com/getting-started-with-rich-messaging-introduction.html
