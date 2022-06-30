@@ -7,6 +7,11 @@ of truth for the API specification.
 > scenario. We have used local caching for storing/retrieving information which can effect the server
 > memory usage.
 
+## API Specification
+The OpenAPI specification can be found under the directory [src/docs/v1.json](src/docs/v1.json). Furthermore, 
+service implementation also contains Interfaces defined at locations [src/controllers/requestBodies](src/controllers/requestBodies)
+and [src/controllers/responseBodies](src/controllers/responseBodies) for Request and Response bodies respectively.
+
 ## Service Specification Concepts
 
 > Note: Detailed concepts of Service Implementation can be found in the official documentation of
