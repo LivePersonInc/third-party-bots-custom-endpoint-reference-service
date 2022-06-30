@@ -9,7 +9,8 @@
   "scripts": {
     "build": "npx tsc",
     "clean": "rm -rf dist",
-    "start": "yarn clean && yarn build && export NODE_ENV=production && node ./dist/index.js",
+    "start": "yarn clean && yarn build && export NODE_ENV=PRODUCTION && node ./dist/index.js",
+    "start:docker": "export NODE_ENV=PRODUCTION && node ./dist/index.js",
     "dev": "nodemon",
     "commit": "git-cz",
     "lint": "eslint ."
