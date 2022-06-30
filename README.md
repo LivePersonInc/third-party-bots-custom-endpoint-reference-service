@@ -164,7 +164,7 @@ can be found [here](src/models/bots/index.ts). List of available bots is as foll
 ### Supported Customer Utterances
 
 In this service implementation we have configured some `Bot Responses` that are supported by Third-Party Bots.
-These response are defined in [src/utils/Response.ts](src/utils/Response.ts) On sending customer utterances (as shown in below table)
+These responses are defined in [src/utils/Response.ts](src/utils/Response.ts). On sending customer utterances (as shown in below table)
 this service will send response:
 
 #### Transfer Action
