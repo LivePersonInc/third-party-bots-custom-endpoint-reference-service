@@ -17,5 +17,5 @@ export type StructuredContentData = {
  */
 export interface IStructuredContentResponse extends IResponseBase {
   type: IResponseType.STRUCTURED_CONTENT;
-  data: StructureContentData;
+  data: StructuredContentData;
 }
