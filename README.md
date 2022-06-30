@@ -151,7 +151,7 @@ docker run -d -p 4004:4004 tpb_custom_endpoint_service
 
 ### Bots
 
-in this service implementation we have configured some bots model manually that can be used in Vendor
+in this service implementation we have configured some example bots manually that can be used in Vendor
 config setup (please make sure to use bot with `online` state). Implementation of such model generation
 can be found [here](src/models/bots/index.ts). List of available bots is as follows:
 
