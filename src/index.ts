@@ -3,7 +3,8 @@ import {
   Action,
   useExpressServer,
   UnauthorizedError,
-  BadRequestError
+  BadRequestError,
+  ForbiddenError
 } from "routing-controllers";
 import { BotController } from "./controllers";
 import dotenv from "dotenv";
@@ -34,14 +35,14 @@ useExpressServer(app, {
   authorizationChecker: async (action: Action) => {
     const authHeader = action.request.headers.authorization;
 
-    if (authHeader) {
-        const token = authHeader.split(' ')[1];
-        
-        ...
- }
+    if (!authHeader) {
+      throw new ForbiddenError("You are not allowed to do this action");
+    }
+
+    const token = authHeader.split(" ")[1];
 
     if (!token) {
-      throw new UnauthorizedError("Not authorized to do this action");
+      throw new UnauthorizedError("Not authorized to perform this action");
     }
 
     const decodedToken = decode(token) as IJwt;
