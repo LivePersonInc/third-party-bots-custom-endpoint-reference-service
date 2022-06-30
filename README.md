@@ -8,7 +8,8 @@ of truth for the API specification.
 > memory usage.
 
 ## API Specification
-The OpenAPI specification can be found under the directory [src/docs/v1.json](src/docs/v1.json). Furthermore, 
+
+The OpenAPI specification can be found under the directory [src/docs/v1.json](src/docs/v1.json). Furthermore,
 service implementation also contains Interfaces defined at locations [src/controllers/requestBodies](src/controllers/requestBodies)
 and [src/controllers/responseBodies](src/controllers/responseBodies) for Request and Response bodies respectively.
 
@@ -95,6 +96,11 @@ implemented by services.
 
 This service requires [Node.js](https://nodejs.org/) v16+ to run, [TypeScript](https://www.typescriptlang.org/) v4.7.3+ to compile and run and [nodemon](https://nodemon.io/) v 2.0.16+
 to run locally in development mode.
+
+> Note: Please make sure your application configurations are valid. For Example, You must check if
+> your Sentinel V1 OAuth Public key is valid for the zone in which you are developing service
+> Check the [src/configs/app.ts](src/configs/app.ts) file fore more information.
+> Current configuration uses the official public key documented [here](sentinalAuth)
 
 Install the dependencies and devDependencies and start the server in development mode.
 
@@ -264,3 +270,4 @@ MIT
 [cbserimpl]: https://developers.liveperson.com/third-party-bots-custom-endpoint-service-implementation.html
 [ccapp]: https://developers.liveperson.com/conversational-cloud-applications-what-is-a-conversational-cloud-application.html
 [richcontentevent]: https://developers.liveperson.com/third-party-bots-custom-endpoint-advanced-features.html#receiving-rich-content-response-messaging-only
+[sentinalauth]: https://developers.liveperson.com/oauth-2-0-client-credentials.html
