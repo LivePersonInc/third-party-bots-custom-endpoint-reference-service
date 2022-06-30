@@ -35,8 +35,8 @@ using private [conversational cloud applications][ccapp].
 
 ### Bots
 
-A bot is identified by its UUID or a similar alphanumeric identifier.A service implementation can restrict
-access to bots bases on the `accountId` provided as the 'aud' field on the authentication WebToken
+A bot is identified by its UUID or a similar alphanumeric identifier. A service implementation can restrict
+access to bots based on the `accountId` provided as the 'aud' field on the authentication WebToken
 
 ### Environments
 
@@ -151,7 +151,7 @@ docker run -d -p 4004:4004 tpb_custom_endpoint_service
 
 ### Bots
 
-in this service implementation we have configured some bots model manually that can be used in Vendor
+in this service implementation we have configured some example bots manually that can be used in Vendor
 config setup (please make sure to use bot with `online` state). Implementation of such model generation
 can be found [here](src/models/bots/index.ts). List of available bots is as follows:
 
@@ -163,7 +163,7 @@ can be found [here](src/models/bots/index.ts). List of available bots is as foll
 
 ### Supported Customer Utterances
 
-In this service implementation we have configured some Bot Responses that are supported by Third-Party Bots.
+In this service implementation we have configured some `Bot Responses` that are supported by Third-Party Bots.
 These response are defined in [src/utils/Response.ts](src/utils/Response.ts) On sending customer utterances (as shown in below table)
 this service will send response:
 

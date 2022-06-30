@@ -32,7 +32,13 @@ app.use(
 
 useExpressServer(app, {
   authorizationChecker: async (action: Action) => {
-    const token = action.request.headers["authorization"].split(" ")[1];
+    const authHeader = action.request.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+        
+        ...
+ }
 
     if (!token) {
       throw new UnauthorizedError("Not authorized to do this action");
