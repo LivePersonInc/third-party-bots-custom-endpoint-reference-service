@@ -36,7 +36,7 @@ using private [conversational cloud applications][ccapp].
 ### Bots
 
 A bot is identified by its UUID or a similar alphanumeric identifier. A service implementation can restrict
-access to bots bases on the `accountId` provided as the 'aud' field on the authentication WebToken
+access to bots based on the `accountId` provided as the 'aud' field on the authentication WebToken
 
 ### Environments
 
