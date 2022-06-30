@@ -15,7 +15,7 @@ export class DefaultBot implements IBot {
     return this.id;
   }
 
-  getState(): string {
+  getState(): State {
     let botState;
     switch (this.id) {
       case configApp.default.BOTS.error:
