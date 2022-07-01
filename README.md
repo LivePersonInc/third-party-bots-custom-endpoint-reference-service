@@ -9,7 +9,7 @@ of truth for the API specification.
 
 ## API Specification
 
-The OpenAPI specification can be found under the directory [src/docs/v1.json](src/docs/v1.json). Furthermore,
+The OpenAPI specification can be found under the directory [docs/v1.json](docs/v1.json). Furthermore,
 service implementation also contains Interfaces defined at locations [src/controllers/requestBodies](src/controllers/requestBodies)
 and [src/controllers/responseBodies](src/controllers/responseBodies) for Request and Response bodies respectively.
 
@@ -71,14 +71,14 @@ implemented by services.
   - 📄 [Dockerfile](Dockerfile) `Docker definition`
   - 📄 [nodemon.json](nodemon.json) `Nodemon configuration`
   - 📄 [package.json](package.json) `Packages definitions`
+  - 📂 **docs**
+    - 📄 [v1.json](docs/v1.json) `Swagger OpenAPI 3.0 Schema definition`
   - 📂 **src**
     - 📂 **configs**
       - 📄 [app.ts](src/configs/app.ts) `...Contains the Application configs`
     - 📂 **controllers** `...Contains Routes definitions`
       - 📂 **requestBodies** `...Contains Request bodies definition`
       - 📂 **responseBodies** `...Contains Response bodies definition`
-    - 📂 **docs**
-      - 📄 [v1.json](src/docs/v1.json) `Swagger OpenAPI 3.0 Schema definition`
     - 📄 [index.ts](src/index.ts) `Service entry point file`
     - 📂 **middlewares**
       - 📄 [SecurityMiddleware.ts](src/middlewares/SecurityMiddleware.ts) `Security Middleware for Auth`
