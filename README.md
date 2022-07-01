@@ -80,6 +80,8 @@ implemented by services.
       - 📂 **requestBodies** `...Contains Request bodies definition`
       - 📂 **responseBodies** `...Contains Response bodies definition`
     - 📄 [index.ts](src/index.ts) `Service entry point file`
+    - 📂 **helpers**
+      - 📄 [AuthorizationChecker.ts](src/helpers/AuthorizationChecker.ts) `Authorization Checker module`
     - 📂 **middlewares**
       - 📄 [SecurityMiddleware.ts](src/middlewares/SecurityMiddleware.ts) `Security Middleware for Auth`
     - 📂 **models** `...Contains service interface definitions and Bots models`

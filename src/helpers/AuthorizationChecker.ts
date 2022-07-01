@@ -9,6 +9,14 @@ import { IJwt } from "../models/jwt";
 import { SecurityMiddleware } from "../middlewares/SecurityMiddleware";
 import configApp from "../configs/app";
 
+/**
+ * An implementation of `authorizationChecker` option for  routing-controllers module
+ * that checks the requests auth.
+ *
+ * @param {Action} action - Controller instance containing request and response objects
+ *
+ * @returns {boolean} - Return true if auth is verified false otherwise
+ */
 export default async function AuthorizationChecker(action: Action) {
   const authHeader = action.request.headers.authorization;
 
