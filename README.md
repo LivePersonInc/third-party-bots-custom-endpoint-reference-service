@@ -102,7 +102,8 @@ to run locally in development mode.
 > Note: Please make sure your application configurations are valid. For Example, You must check if
 > your Sentinel V1 OAuth Public key is valid for the zone in which you are developing service
 > Check the [src/configs/app.ts](src/configs/app.ts) file fore more information.
-> Current configuration uses the official public key documented [here](sentinalAuth)
+> Current configuration uses the official public key documented [here](sentinalAuth) or contact LivePerson
+> representative in case you need assistance
 
 Install the dependencies and devDependencies and start the server in development mode.
 
@@ -263,6 +264,20 @@ Event with type `START` will cause changes to respond with Survey Start event
 > Note: This response is only supported in Survey Bots Conversation
 
 Event with type `CLOSE_CONVERSATION` will cause changes to respond with Survey Close event
+
+## FAQ
+
+### Getting Invalid Signature error response from the service what to do?
+
+This mostly happen if you are using Sentinel V1 for auth implementation. If you are receiving
+the invalid signature error on request to the service this usually means you need to update
+the `V1_PUBLIC_KEY` config in [app.ts](src/configs/app.ts) file.
+
+Please keep in mind that public keys are different for accounts zone (Alpha, QA, Production).
+If you are developing Custom Endpoint Service please ensure that you are using valid Public Key for
+your zone. If Public API Key is not valid you will get 401 error response and [SecurityMiddleware.ts](src/middlewares/SecurityMiddleware.ts)
+implementation will not be able to verify the JWT. If you are not sure about this please ask Customer
+Representative of LivePerson for your account to help you with this.
 
 ## License
 

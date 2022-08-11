@@ -40,7 +40,6 @@
     "@types/jwk-to-pem": "2.0.1",
     "@types/jsonwebtoken": "8.5.8",
     "@types/node": "16.11.39",
-    "@types/node-cache": "4.2.5",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "commitizen": "4.2.4",
