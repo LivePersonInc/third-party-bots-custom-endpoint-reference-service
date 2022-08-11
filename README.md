@@ -102,7 +102,8 @@ to run locally in development mode.
 > Note: Please make sure your application configurations are valid. For Example, You must check if
 > your Sentinel V1 OAuth Public key is valid for the zone in which you are developing service
 > Check the [src/configs/app.ts](src/configs/app.ts) file fore more information.
-> Current configuration uses the official public key documented [here](sentinalAuth)
+> Current configuration uses the official public key documented [here](sentinalAuth) or contact LivePerson
+> representative in case you need assistance
 
 Install the dependencies and devDependencies and start the server in development mode.
 
