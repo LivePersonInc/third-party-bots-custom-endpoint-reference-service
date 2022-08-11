@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn config set registry http://tlvmvnrepository.tlv.lpnet.com/artifactory/api/npm/lp-npm-virtual/
-
 RUN npm install typescript -g
 RUN yarn install
 RUN yarn clean
