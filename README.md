@@ -254,11 +254,11 @@ Following utterances will generate delay response
 
 Any Rich Content passed via customer will be rendered with all the raw data
 
-#### Survey Start Event
+#### Start Event
 
-> Note: This response is only supported in Survey Bots Conversation
+> Note: This response is only supported in Messaging Conversation. More information on this can be found [here][welcomeEvent]
 
-Event with type `START` will cause changes to respond with Survey Start event
+When the `Welcome Message` option is enabled in the Conversation Type step of the bot creation wizard, the service will receive an event labeled as `START`. This event includes the `lastConsumerMessage` within the `lpEvent` property, located in the `context`.
 
 #### Survey Close Event
 
@@ -291,3 +291,4 @@ MIT
 [ccapp]: https://developers.liveperson.com/conversational-cloud-applications-what-is-a-conversational-cloud-application.html
 [richcontentevent]: https://developers.liveperson.com/third-party-bots-custom-endpoint-advanced-features.html#receiving-rich-content-response-messaging-only
 [sentinalauth]: https://developers.liveperson.com/oauth-2-0-client-credentials.html
+[welcomeEvent]: https://developers.liveperson.com/third-party-bots-custom-endpoint-advanced-features.html#receiving-last-consumer-message-messaging-only

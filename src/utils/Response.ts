@@ -1,6 +1,7 @@
 import { EventMessageType } from "../controllers/requestBodies";
 import { Actions, TTRTypes } from "../models/bots/responses/IActionResponse";
 import { IResponseType } from "../models/bots/responses/IResponseTypes";
+import { IEventContext } from "../models/events/IEventContext";
 import { IEventResponse } from "../models/events/IEventResponse";
 import { MessageAudience } from "../models/events/ILPEvent";
 
@@ -464,6 +465,33 @@ export class ResponseFetcher {
 
   public getConsumerRichContentEventResponse(data: object): IEventResponse {
     return this.getRichContentEventResponse(data); // INFO: Only Works for Messaging Bots
+  }
+
+
+  public getWelcomeResponse(context: IEventContext): IEventResponse {
+    const { lpEvent: { lastConsumerMessage } } = context;
+    const message = lastConsumerMessage
+      ? `I received the last consumer message: ${lastConsumerMessage}`
+      : "Hello there! how can I help you today"
+    return {
+      response: [
+        {
+          type: IResponseType.TEXT,
+          data: {
+            message
+          }
+        }
+      ],
+      analytics: {
+        intents: [
+          {
+            id: "welcome-intent",
+            description: "welcome Message",
+            confidenceScore: 0.9
+          }
+        ]
+      }
+    };
   }
 
   public getSurveyResponse(

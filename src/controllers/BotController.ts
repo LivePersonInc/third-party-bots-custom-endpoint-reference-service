@@ -100,7 +100,7 @@ export class BotController {
       throw new NotFoundError(`no conversation found for the given bot.`);
     }
 
-    const { type, data } = body;
+    const { type, data, context } = body;
     // Currently we only support Text and Rich Content events sent by customer
 
     switch (type) {
@@ -117,7 +117,7 @@ export class BotController {
         );
         break;
       case EventMessageType.START:
-        return this.botService.fetchSurveyEvents(EventMessageType.START, data);
+        return this.botService.fetchStartEvents(context);
         break;
       case EventMessageType.CLOSE_CONVERSATION:
         return this.botService.fetchSurveyEvents(

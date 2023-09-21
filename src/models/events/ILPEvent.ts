@@ -11,5 +11,6 @@ export interface ILPEvent {
   dialogId: string;
   metadata: Array<object>;
   messageAudience: MessageAudience;
+  lastConsumerMessage?: string;
   // .... Other RAW LP Content Event properties
 }

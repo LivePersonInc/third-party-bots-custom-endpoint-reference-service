@@ -9,6 +9,7 @@ import { IRichContentEventData } from "../models/events/IRichContentEventData";
 import { ResponseFetcher } from "../utils/Response";
 import { IEventResponse } from "../models/events/IEventResponse";
 import { EventMessageType } from "../controllers/requestBodies";
+import { IEventContext } from "../models/events/IEventContext";
 
 /**
  * Bot Service Class for doing CRUD operation on a Bot
@@ -131,6 +132,12 @@ export class BotService {
     return ResponseFetcher.getInstance().getConsumerTextResponse(
       eventData.message.toLocaleLowerCase()
     );
+  }
+
+  fetchStartEvents(
+    eventContext: IEventContext
+  ): IEventResponse {
+    return ResponseFetcher.getInstance().getWelcomeResponse(eventContext);
   }
 
   /**
