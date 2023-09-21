@@ -258,7 +258,7 @@ Any Rich Content passed via customer will be rendered with all the raw data
 
 > Note: This response is only supported in Messaging Conversation. More information on this can be found [here][welcomeEvent]
 
-If `WelcomeEvent` is enabled the messaging bot, will receive an event with the type `START`, This event contains the `lastConsumerMessage` as part of the lpEvent inside the context
+When the `Welcome Message` option is enabled in the Conversation Type step of the bot creation wizard, the service will receive an event labeled as `START`. This event includes the `lastConsumerMessage` within the `lpEvent` property, located in the `context`.
 
 #### Survey Close Event
 
