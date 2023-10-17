@@ -47,7 +47,7 @@ app.use(
 
 app
   .listen(port, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
   })
   .on("error", function () {
     process.once("SIGUSR2", function () {
