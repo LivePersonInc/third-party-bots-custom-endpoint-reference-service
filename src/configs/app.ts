@@ -38,7 +38,7 @@ export default {
      * This below API key is taken from  https://developers.liveperson.com/oauth-2-0-client-credentials.html
      * */
     V1_PUBLIC_KEY: `-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvNDIU1yUm+8MF/IC1JmhOiuXHOt3hKmY1IYMfgEWlGhNhze3wrayhbMebJfFUesiy9q3tuzK/AbJyvO7xZK2XC9UC1kOWyqHPcNKh1uVPTkSrR/2j+sdeR0H8qVS+mIqS7nDjA+rrkuztzaUMmiqg/W35XG5jAsDhtfYiSTgjxEYKJYn94ec+RnYR8Gdt8il+GszlOSg2fuBjlSpG4YMM7TOSoq1VBn7GamU72lSN4w9kmw2GtTk9Q9g8niY1AqPKARbDZ/xS4RJEy4F/HUvRCvjtXUXDtzd1yzRxNbyX4/twSz0cqAW6nRjAyHdxT3kIowj3+qx5wlDltNH/6DhBwIDAQAB\t
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvGQctwBFFZBaSu+LC4LVk/4/XyVQmhcwM5a91lT7BwZug/GtpR+ZGpKkiZSgTehRdBJKSPjv5K6D8/cBm28OV11Mekjn1PJrveSXrRsfUbOqIHgpfVtnkxN3ZaV6GSWQrrZArkpbAm+Kf5o5jxFPhCadB8BdRGCbMI3rFEkYSFqnmptI3olIAtAjmtbLJnwYZyXl2WZXMBmORLXnV9aTMGp4uFZdX+QbK808q55zxSB5HM3N9B8NLUP1TELc6N2dhWk2RwR/C9WvQYH/UAnxqVEwrAXt+rb+YWuu92Dj4NLAmpEYbRQi+S+5Y6t5g6kX/QMQ/ycdFOW/WA3JoptUSQIDAQAB
 -----END PUBLIC KEY-----`
   },
 
