@@ -18,7 +18,8 @@ export default {
    * in future. Keep checking our official documentation:
    * https://developers.liveperson.com/third-party-bots-custom-endpoint-introduction.html
    */
-  CUSTOM_ENDPOINT_APP_SCOPE: "ihub.tpb.customendpoint",
+  CUSTOM_ENDPOINT_APP_SCOPE_DEPRECATED: "ihub.tpb.customendpoint",
+  CUSTOM_ENDPOINT_APP_SCOPE: "thirdpartybots.customendpoint.bot",
   SENTINEL_API: {
     ALGORITHMS: ["RS256"],
     KEY_ISSUER: "Sentinel",

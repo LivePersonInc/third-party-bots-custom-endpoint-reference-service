@@ -38,13 +38,13 @@ export default async function AuthorizationChecker(action: Action) {
 
   // The following scope will fail if you move to V2 and our
   // This scope might also be changed in future release of custom endpoint
-  if (
-    decodedToken.scope &&
-    decodedToken.scope !== configApp.CUSTOM_ENDPOINT_APP_SCOPE
-  ) {
-    throw new UnauthorizedError(
-      "You have no permissions to perform this action"
-    );
+  if (!decodedToken.scope) {
+    throw new UnauthorizedError("No Scope provided");
+  }
+  if(decodedToken.scope === configApp.CUSTOM_ENDPOINT_APP_SCOPE_DEPRECATED) {
+    console.log("Deprecated scope was used", {scope: configApp.CUSTOM_ENDPOINT_APP_SCOPE_DEPRECATED});
+  } else if (decodedToken.scope !== configApp.CUSTOM_ENDPOINT_APP_SCOPE) {
+    throw new UnauthorizedError("You have no permissions to perform this action");
   }
 
   await SecurityMiddleware.validateAuthentication(token, decodedToken);
